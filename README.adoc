@@ -1,0 +1,39 @@
+= 🧉 Mate For You
+
+This project is a slim clone of https://heytaco.com/[HeyTaco] made in Elixir.
+
+== Workflow
+1. Add _Mate4You_ to _Slack_.
+2. Write and include mate emoji (🧉)  in your messages to show praise, appreciation, or to just simply put a smile on someone's face.
+
+== Features
+
+=== Must
+
+- [ ] Users can receive any amount of mates 🧉 per day.
+- [ ] Users can give up to 5 mates 🧉 per day to any user.
+- [ ] Have API for Leaderboards (https://www.heytaco.chat/api)
+
+=== Should
+
+- [ ] Leaderboard page with top receiving users (day, week, month, year).
+- [ ] Leaderboard page with top giving users (day, week, month, year).
+
+=== Possible
+
+- [ ] Filter with hashtags
+
+== Tech Stack
+
+- https://slack.com/[Slack] (or compatibles like https://www.rocket.chat/[Rocket.chat] or https://mattermost.com/[Mattermost]).
+- Elixir 1.14
+- Phoenix Framework + Ash Framework + LiveView
+- PostgreSQL
+
+== License
+
+AGPLv3
+
+== Credits
+
+image:https://img.shields.io/badge/Proudly_Coded_in-🇨🇱_Chile-white?style=for-the-badge[Proudly Coded in - 🇨🇱 Chile]
