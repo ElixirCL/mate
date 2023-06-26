@@ -32,7 +32,7 @@ This project is a slim clone of https://heytaco.com/[HeyTaco] made in *Elixir*.
 
 == License
 
-AGPLv3
+image:https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0[License: AGPL v3]
 
 == Credits
 
