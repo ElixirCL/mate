@@ -3,8 +3,13 @@
 This project is a slim clone of https://heytaco.com/[HeyTaco] made in *Elixir*.
 
 == Workflow
-1. Add _Mate4You_ to _Discord_.
-2. Write and include mate emoji (🧉)  in your messages to show praise, appreciation, or to just simply put a smile on someone's face.
+1. Add _Mate_ to _Discord_.
+2. Write and include _:mate:_ emoji (🧉)  in your messages to show praise, appreciation, or to just simply put a smile on someone's face and include them in the message.
+
+Example
+```text
+Hey thanks for your help @huemul :mate:
+```
 
 == Features
 
@@ -12,22 +17,23 @@ This project is a slim clone of https://heytaco.com/[HeyTaco] made in *Elixir*.
 
 - [ ] Users can receive any amount of mates 🧉 per day.
 - [ ] Users can give up to 5 mates 🧉 per day to any user.
-- [ ] Have API for Leaderboards (https://www.heytaco.chat/api)
 
 === Should
-
-- [ ] Leaderboard page with top receiving users (day, week, month, year).
-- [ ] Leaderboard page with top giving users (day, week, month, year).
+- [ ] Have commands to show current stats for the user.
 
 === Possible
 
 - [ ] Filter with hashtags
+- [ ] Have API for Leaderboards (https://www.heytaco.chat/api)
+- [ ] Leaderboard page with top receiving users (day, week, month, year).
+- [ ] Leaderboard page with top giving users (day, week, month, year).
 
 == Tech Stack
 
 - https://discord.com/[Discord] (or compatibles like https://revolt.chat/[Revolt.chat]).
 - Elixir 1.14
 - Phoenix
+- Nostrum
 - PostgreSQL
 
 == License
