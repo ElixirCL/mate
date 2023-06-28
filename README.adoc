@@ -21,7 +21,7 @@ Hey thanks for your help @huemul :mate:
 - [x] Users can give up to 5 mates 🧉 per day to any user.
 
 === Should
-- [ ] Have commands to show current stats for the user.
+- [x] Have commands to show current stats for the user.
 
 === Possible
 
@@ -37,6 +37,12 @@ Hey thanks for your help @huemul :mate:
 - Phoenix
 - Nostrum
 - PostgreSQL
+
+== Example
+
+image:https://github.com/ElixirCL/mate/assets/292738/271c99b9-733f-4ae4-8225-d1b4084c3d7c[Sent]
+
+image:https://github.com/ElixirCL/mate/assets/292738/9bd58c1c-d001-4570-833b-33be3d702282[Stats]
 
 == License
 
