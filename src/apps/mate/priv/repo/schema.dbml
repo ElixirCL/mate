@@ -1,0 +1,12 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+Table mates {
+  id string // uuidv7
+  from_user_id integer
+  to_user_id integer
+  channel_id integer
+  guild_id integer
+  inserted_at timestamp
+  updated_at timestamp
+}
