@@ -23,6 +23,30 @@ defmodule Mate.Repositories.Mates.Structs do
         guild_id: to_string(give.guild)
       }
     end
+  end
 
+  defmodule Stats do
+    def new(
+          today: [sent: sent, left: left, received: received, hours: hours],
+          week: [sent: week_sent, received: week_received],
+          total: [sent: total_sent, received: total_received]
+        ) do
+      %{
+        today: %{
+          sent: sent,
+          left: left,
+          received: received,
+          hours: hours
+        },
+        week: %{
+          sent: week_sent,
+          received: week_received
+        },
+        total: %{
+          sent: total_sent,
+          received: total_received
+        }
+      }
+    end
   end
 end

@@ -12,8 +12,8 @@ defmodule Discord do
 
   defp give_mate(%_{mentions: [user | _rest]} = msg, 1) do
     case Mates.send_mate(from: msg.author, to: user, channel: msg.channel_id, guild: msg.guild_id, content: msg.content) do
-      {:ok, _, count} -> Message.send(msg.channel_id, "Awesome!, :mate: was given to #{Message.mention(user.id)}. You have sent #{count + 1} :mate: so far today.")
-      {:error, :MAX_MATES_PER_DAY_REACHED, count} -> Message.send(msg.channel_id, "Oh no!. Your :mate: stock (#{count}) is empty. Please wait until tomorrow to send more.")
+      {:ok, _, count} -> Message.send(msg.channel_id, "Awesome!, :mate: was given to #{Message.mention(user.id)}. You have sent #{count + 1}/#{Mates.max}} :mate: so far today.")
+      {:error, :MAX_MATES_PER_DAY_REACHED, count} -> Message.send(msg.channel_id, "Oh no!. Your :mate: stock (#{count}/#{Mates.max}}) is empty. Please wait until tomorrow to send more.")
       error ->
         Logger.error(error)
         Message.send(msg.channel_id, "Something went wrong :bomb:. Please contact an admin or moderator.")
@@ -25,7 +25,7 @@ defmodule Discord do
     Message.send(msg.channel_id, "Sorry #{Message.mention(msg.author.id)}, I only can give one :mate: at a time. Please mention only one person to give :mate:. Thanks.")
   end
 
-  defp is_valid_message(message) do
+  defp is_mate_message(message) do
     case (String.split(message, "\n")
           |> length()) == 1 do
       true -> String.contains?(message, "🧉") ||
@@ -34,11 +34,37 @@ defmodule Discord do
     end
   end
 
+  defp process_command(:stats, msg) do
+    stats = Mates.stats(user: msg.author.id, guild: msg.guild_id)
+    Message.send(msg.channel_id, """
+# Stats
+Hello #{Message.mention(msg.author.id)}. These are your stats.
+## Today
+- :mate: sent: *#{stats.today.sent}*
+- :mate: left: *#{stats.today.left}*
+- :mate: received: *#{stats.today.received}*
+- :alarm_clock: hours until renewal: *#{stats.today.hours}*
+## Week
+- :mate: sent: *#{stats.week.sent}*
+- :mate: received: *#{stats.week.received}*
+## Total
+- :mate: sent: *#{stats.total.sent}*
+- :mate: received: *#{stats.total.received}*
+""")
+  end
+
+  defp handle_command(text, msg) do
+    case text do
+      "!stats" -> process_command(:stats, msg)
+      "!mate.stats" -> process_command(:stats, msg)
+      _ -> {:error, :MATE_HANDLER_NOT_FOUND}
+    end
+  end
+
   def handle_event({:MESSAGE_CREATE, %Nostrum.Struct.Message{author: %Nostrum.Struct.User{bot: nil}} = msg, _ws_state}) do
-    case is_valid_message(msg.content) do
+    case is_mate_message(msg.content) do
       true -> give_mate(msg, Enum.count(msg.mentions))
-      _ ->
-        {:error, :MATE_NOT_FOUND}
+      false -> handle_command(msg.content, msg)
     end
   end
 

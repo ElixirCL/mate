@@ -3,10 +3,11 @@
 
 Table mates {
   id string // uuidv7
-  from_user_id integer
+  from_user_id integer // bigint for discord ids
+  from_user_name string
   to_user_id integer
+  to_user_name string
   channel_id integer
   guild_id integer
   inserted_at timestamp
-  updated_at timestamp
 }

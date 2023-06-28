@@ -42,7 +42,7 @@ defmodule Mate.MixProject do
       {:jason, "~> 1.2"},
       {:swoosh, "~> 1.3"},
       {:finch, "~> 0.13"},
-      {:uniq, "~> 0.5.4"}
+      {:uniq, "~> 0.5.4"},
     ]
   end
 
