@@ -1,7 +1,7 @@
 defmodule Mate.Repositories.Mates.Structs do
   defmodule Give do
     alias __MODULE__
-    defstruct ~w(from to channel content guild)a
+    defstruct ~w(from to channel guild content)a
 
     def new(from, to, channel, guild, content) do
       %Give{
@@ -15,15 +15,14 @@ defmodule Mate.Repositories.Mates.Structs do
 
     def to_attrs(%Give{} = give) do
       %{
-        from_user_id: give.from.id,
-        to_user_id: give.to.id,
-        channel_id: give.channel,
-        guild_id: give.guild
+        from_user_id: to_string(give.from.id),
+        from_user_name: to_string(give.from.username),
+        to_user_id: to_string(give.to.id),
+        to_user_name: to_string(give.to.username),
+        channel_id: to_string(give.channel),
+        guild_id: to_string(give.guild)
       }
     end
 
-    def from_schema(give) do
-      new(give.from_user_id, give.to_user_id, give.channel_id, give.guild_id, give.content)
-    end
   end
 end

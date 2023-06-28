@@ -3,8 +3,7 @@ defmodule Discord do
   require Logger
 
   alias Nostrum.Api
-  alias Mate.Repositories.Mates.Commands
-  alias Mate.Repositories.Mates.Structs.Give
+  alias Mate.Repositories.Mates
 
   defmodule Message do
     def mention(user_id), do: "<@#{user_id}>"
@@ -12,11 +11,13 @@ defmodule Discord do
   end
 
   defp give_mate(%_{mentions: [user | _rest]} = msg, 1) do
-    Give.new(msg.author, user, msg.channel_id, msg.guild_id, msg.content)
-    |> Commands.create()
-
-    # TODO: Check how many mates the autor have for today before giving
-    Message.send(msg.channel_id, "Awesome!, :mate: was given to #{Message.mention(user.id)}")
+    case Mates.send_mate(from: msg.author, to: user, channel: msg.channel_id, guild: msg.guild_id, content: msg.content) do
+      {:ok, _, count} -> Message.send(msg.channel_id, "Awesome!, :mate: was given to #{Message.mention(user.id)}. You have sent #{count + 1} :mate: so far today.")
+      {:error, :MAX_MATES_PER_DAY_REACHED, count} -> Message.send(msg.channel_id, "Oh no!. Your :mate: stock (#{count}) is empty. Please wait until tomorrow to send more.")
+      error ->
+        Logger.error(error)
+        Message.send(msg.channel_id, "Something went wrong :bomb:. Please contact an admin or moderator.")
+    end
   end
 
   defp give_mate(msg, mentions_count) do
