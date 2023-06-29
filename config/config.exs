@@ -28,6 +28,7 @@ config :nostrum,
 # Configures the endpoint
 config :mate, MateWeb.Endpoint,
   url: [host: "localhost"],
+  http: [ip: {0, 0, 0, 0}, port: 4000],
   render_errors: [
     formats: [html: MateWeb.ErrorHTML, json: MateWeb.ErrorJSON],
     layout: false

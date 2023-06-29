@@ -12,10 +12,10 @@ kill_signal = "SIGTERM"
 
 [env]
   PHX_HOST = "elixircl-matebot.fly.dev"
-  PORT = "8080"
+  PORT = "4000"
 
 [http_service]
-  internal_port = 8080
+  internal_port = 4000
   force_https = true
   auto_stop_machines = true
   auto_start_machines = true
