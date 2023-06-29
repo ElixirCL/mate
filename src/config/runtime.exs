@@ -14,7 +14,7 @@ if config_env() == :prod do
       For example: ecto://USER:PASS@HOST/DATABASE
       """
 
-  maybe_ipv6 = if System.get_env("ECTO_IPV6") in ~w(true 1), do: [:inet6], else: []
+  maybe_ipv6 = if System.get_env("f") in ~w(true 1), do: [:inet6], else: []
 
   config :mate, Mate.Repo,
     # ssl: true,
@@ -34,6 +34,8 @@ if config_env() == :prod do
       You can generate one by calling: mix phx.gen.secret
       """
 
+  # Needs special config for Fly.io
+  # https://community.fly.io/t/how-to-deploy-a-phoenix-umbrella-project/4498/4
   config :mate_web, MateWeb.Endpoint,
     http: [
       # Enable IPv6 and bind on all interfaces.
@@ -41,6 +43,7 @@ if config_env() == :prod do
       ip: {0, 0, 0, 0, 0, 0, 0, 0},
       port: String.to_integer(System.get_env("PORT") || "4000")
     ],
+    server: true,
     secret_key_base: secret_key_base
 
   # ## Using releases

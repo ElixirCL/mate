@@ -10,7 +10,7 @@ import Config
 # which you should run after static files are built and
 # before starting your production server.
 config :mate_web, MateWeb.Endpoint,
-  url: [host: "example.com", port: 80],
+  url: [host: "0.0.0.0", port: 8080],
   cache_static_manifest: "priv/static/cache_manifest.json"
 
 # Configures Swoosh API Client

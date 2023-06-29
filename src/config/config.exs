@@ -44,7 +44,7 @@ config :mate_web,
 
 # Configures the endpoint
 config :mate_web, MateWeb.Endpoint,
-  url: [host: "localhost"],
+  url: [host: "0.0.0.0"],
   render_errors: [
     formats: [html: MateWeb.ErrorHTML, json: MateWeb.ErrorJSON],
     layout: false
