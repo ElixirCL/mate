@@ -27,8 +27,11 @@ defmodule Discord do
     end
   end
 
+  defp give_mate(msg, 0) do
+    Message.send(msg.channel_id, "Wait! #{Message.mention(msg.author.id)}, please mention one person to give :mate:. Thanks.")
+  end
+
   defp give_mate(msg, mentions_count) do
-    Logger.info("Do not give mate. Invalid mentions count: #{mentions_count}}")
     Message.send(msg.channel_id, "Sorry #{Message.mention(msg.author.id)}, I only can give one :mate: at a time. Please mention only one person to give :mate:. Thanks.")
   end
 
