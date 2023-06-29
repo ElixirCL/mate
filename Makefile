@@ -1,38 +1,26 @@
-.PHONY: phx.db.setup phx.server phx.assets.deploy phx.release.docker fly.launch fly.deploy fly.secret fly.db
+.PHONY: deps db.setup phx.server fly.launch fly.deploy fly.db.list
+FLY_APP_NAME=elixircl-matebot
+FLY_REGION=scl
 
-# Set the corresponding Discord Token and DATABASE_URL
-# in env
-DISCORD_TOKEN=
-DATABASE_URL=
-# cd src && mix phx.gen.secret
-SECRET_KEY_BASE=
+deps d:
+	mix deps.get
 
+db.setup dbs:
+	mix ecto.drop
+	mix ecto.create
+	mix ecto.migrate
 
-phx.server s:
-	cd src && DISCORD_TOKEN=$DISCORD_TOKEN iex -S mix phx.server
+db.run dbr:
+	postgres -D /usr/local/var/postgres
 
-phx.db.setup dbs:
-	cd src && mix ecto.drop
-	cd src && mix ecto.create
-	cd src && mix ecto.migrate
-
-phx.assets.deploy ad:
-	cd src/apps/mate_web && MIX_ENV=prod mix assets.deploy
-
-phx.release.docker r:
-	cd src/apps/mate_web && mix phx.gen.release --docker
+phx.server ps:
+	iex -S mix phx.server
 
 fly.launch fl:
-	cd src/ && fly launch --name elixircl-matebot --build-only --no-deploy --dockerfile Dockerfile --dockerignore-from-gitignore --region scl
+	fly launch --name ${FLY_APP_NAME} --dockerignore-from-gitignore --region ${FLY_REGION}
 
 fly.deploy fd:
-	cd src/ && fly deploy
+	fly deploy
 
-fly.secret fs:
-	cd src && fly secrets set SECRET_KEY_BASE=${SECRET_KEY_BASE}
-	cd src && fly secrets set DISCORD_TOKEN=${DISCORD_TOKEN}
-	cd src && fly secrets set DATABASE_URL=${DATABASE_URL}
-
-fly.db fdb:
-	cd src && fly postgres create --name elixircl-matebot-db --region scl
-	fly postgres -a elixircl-matebot-db db list
+fly.db.list fdl:
+	fly postgres -a ${FLY_APP_NAME} db list

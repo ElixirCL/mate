@@ -1,3 +1,0 @@
-# Mate
-
-**TODO: Add description**
