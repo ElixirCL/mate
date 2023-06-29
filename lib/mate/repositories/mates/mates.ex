@@ -34,14 +34,13 @@ defmodule Mate.Repositories.Mates do
     week_received = Queries.mates_to_user_in_guild(user, guild, week_start, week_end, :count)
 
 
-    #     TODO: add month and year stats
-    #    {month_start, month_end} = Queries.month_datetimes()
-    #    month_sent = Queries.mates_from_user_in_guild(user, guild, month_start, month_end, :count)
-    #    month_received = Queries.mates_to_user_in_guild(user, guild, month_start, month_end, :count)
+    {month_start, month_end} = Queries.month_datetimes()
+    month_sent = Queries.mates_from_user_in_guild(user, guild, month_start, month_end, :count)
+    month_received = Queries.mates_to_user_in_guild(user, guild, month_start, month_end, :count)
 
-    #    {year_start, year_end} = Queries.year_datetimes()
-    #    year_sent = Queries.mates_from_user_in_guild(user, guild, year_start, year_end, :count)
-    #    year_received = Queries.mates_to_user_in_guild(user, guild, year_start, year_end, :count)
+    {year_start, year_end} = Queries.year_datetimes()
+    year_sent = Queries.mates_from_user_in_guild(user, guild, year_start, year_end, :count)
+    year_received = Queries.mates_to_user_in_guild(user, guild, year_start, year_end, :count)
 
     total_sent = Queries.total_mates_from_user_in_guild(user, guild)
     total_received = Queries.total_mates_to_user_in_guild(user, guild)
@@ -49,6 +48,8 @@ defmodule Mate.Repositories.Mates do
     params = [
       today: [sent: sent, left: left, received: received, hours: hours],
       week: [sent: week_sent, received: week_received],
+      month: [sent: month_sent, received: month_received],
+      year: [sent: year_sent, received: year_received],
       total: [sent: total_sent, received: total_received]
     ]
 

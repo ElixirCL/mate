@@ -30,6 +30,8 @@ defmodule Mate.Repositories.Mates.Structs do
     def new(
           today: [sent: sent, left: left, received: received, hours: hours],
           week: [sent: week_sent, received: week_received],
+          month: [sent: month_sent, received: month_received],
+          year: [sent: year_sent, received: year_received],
           total: [sent: total_sent, received: total_received]
         ) do
       %{
@@ -43,6 +45,13 @@ defmodule Mate.Repositories.Mates.Structs do
           sent: week_sent,
           received: week_received
         },
+        month: %{
+          sent: month_sent,
+          received: month_received
+        },
+        year: %{
+          sent: year_sent,
+          received: year_received},
         total: %{
           sent: total_sent,
           received: total_received

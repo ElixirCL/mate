@@ -23,4 +23,4 @@ fly.deploy fd:
 	fly deploy
 
 fly.db.list fdl:
-	fly postgres -a ${FLY_APP_NAME} db list
+	fly postgres -a ${FLY_APP_NAME}-db db list
