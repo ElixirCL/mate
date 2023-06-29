@@ -18,7 +18,7 @@ config :mate,
        ]
 
 config :nostrum,
-       token: System.get_env("DISCORD_TOKEN") || "MTEyMjkwNzQ5MDQzNTIxNTQ4MQ.GZL0oz.HyQ72Ll34gYOYXYlkYrENL_pYPN4PpmxTsw0xc",
+       token: System.get_env("DISCORD_TOKEN"),
        gateway_intents: [
          :message_content,
          :guild_messages,
