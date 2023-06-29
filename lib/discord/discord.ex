@@ -75,6 +75,21 @@ Hello #{Message.mention(msg.author.id)}. These are your stats.
     end
   end
 
+  # FIXME: Fix duplicate message when running more instances of the app
+  # When two or more instances are running it will send the message twice
+  # So in order to mitigate that problem the best way is to store the message id
+  # in the database (mate table) and detect if the message was already responded to
+  # Workflow:
+  # - check if is a valid message
+  # - detect if message_id already was responded (in db)
+  # - if the message is valid to be responded:
+  #   -- add message_id in database table (send mate)
+  #   -- respond
+  # - else
+  #   -- do not respond
+  # Tasks:
+  # - add message_id to mates table (create migration)
+  # - add detection logic
   def handle_event({:MESSAGE_CREATE, %Nostrum.Struct.Message{author: %Nostrum.Struct.User{bot: nil}} = msg, _ws_state}) do
     case is_mate_message(msg.content) do
       true ->
