@@ -106,6 +106,41 @@ defmodule Mate.Repositories.Mates.Queries do
       )
     end
 
+    defp top_giving_users_in_guild_query(guild_id, start_at, end_at, take) do
+      from(m in Mate,
+        group_by: m.from_user_id,
+        select: %{from_user_id: m.from_user_id, count: count(m.from_user_id)},
+        where: m.guild_id == ^guild_id and
+               m.inserted_at >= ^start_at and
+               m.inserted_at <= ^end_at,
+        order_by: [desc: count(m.from_user_id)]
+      )
+      |> limit(^take)
+    end
+
+    defp top_receiving_users_in_guild_query(guild_id, start_at, end_at, take) do
+      from(m in Mate,
+        group_by: m.to_user_id,
+        select: %{to_user_id: m.to_user_id, count: count(m.to_user_id)},
+        where: m.guild_id == ^guild_id and
+               m.inserted_at >= ^start_at and
+               m.inserted_at <= ^end_at,
+        order_by: [desc: count(m.to_user_id)]
+      )
+      |> limit(^take)
+    end
+
+    # Stats
+    def top_giving_users_in_guild(guild_id, start_at, end_at, take \\ 10) do
+      top_giving_users_in_guild_query(guild_id, start_at, end_at, take)
+      |> Repo.all()
+    end
+
+    def top_receiving_users_in_guild(guild_id, start_at, end_at, take \\ 10) do
+      top_receiving_users_in_guild_query(guild_id, start_at, end_at, take)
+      |> Repo.all()
+    end
+
     # From User
     def mates_from_user(user_id, start_at, end_at) do
       mates_from_user_query(user_id, start_at, end_at)

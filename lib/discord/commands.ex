@@ -27,8 +27,34 @@ defmodule Discord.Commands do
     """)
   end
 
-  def handle(:top, _msg) do
+  def handle(:top, msg) do
+    top = Mates.top(msg.guild_id, :week)
+    
+    out = ["# Weekly Leaderboard\n"]
 
+    out = top.giving
+    |> Enum.reduce(out ++ ["### Top :mate: Giving\n"], fn item, acc ->
+      place = case item.sort do
+        0 -> ":first_place:"
+        1 -> ":second_place:"
+        2 -> ":third_place:"
+        _ -> ""
+      end
+      acc ++ ["- #{place} #{item.name}: #{item.count} :mate:\n"]
+    end)
+
+    out = top.receiving
+    |> Enum.reduce(out ++ ["### Top :mate: Receiving\n"], fn item, acc ->
+      place = case item.sort do
+        0 -> ":first_place:"
+        1 -> ":second_place:"
+        2 -> ":third_place:"
+        _ -> ""
+      end
+      acc ++ ["- #{place} #{item.name}: #{item.count} :mate:\n"]
+    end)
+
+    Message.send(msg.channel_id, Enum.join(out))
   end
 
 

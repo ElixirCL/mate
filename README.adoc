@@ -44,6 +44,11 @@ image:https://github.com/ElixirCL/mate/assets/292738/271c99b9-733f-4ae4-8225-d1b
 
 image:https://github.com/ElixirCL/mate/assets/292738/9bd58c1c-d001-4570-833b-33be3d702282[Stats]
 
+== Commands
+
+- `!top`: Show top 10 users in the week.
+- `!stats`: Show current stats for the user
+
 == License
 
 https://www.gnu.org/licenses/agpl-3.0[image:https://img.shields.io/badge/License-AGPL%20v3-blue.svg[License: AGPL v3]]

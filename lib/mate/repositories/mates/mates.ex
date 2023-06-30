@@ -56,8 +56,28 @@ defmodule Mate.Repositories.Mates do
     Structs.Stats.new(params)
   end
 
-  def top(user: _user, guild: _guild) do
+  def top(guild, :week, take \\ 10) do
 
+    {week_start, week_end} = Queries.week_datetimes()
+
+    top_giving = Queries.top_giving_users_in_guild(guild, week_start, week_end, take)
+    |> Enum.with_index()
+    |> Enum.map(fn {record, index} ->
+      Structs.TopUser.new(record.from_user_id, record.count, index)
+    end)
+
+    top_receiving = Queries.top_receiving_users_in_guild(guild, week_start, week_end, take)
+    |> Enum.with_index()
+    |> Enum.map(fn {record, index} ->
+      Structs.TopUser.new(record.to_user_id, record.count, index)
+    end)
+
+    %{
+      giving: top_giving,
+      receiving: top_receiving,
+      start_at: week_start,
+      end_at: week_end
+    }
   end
 
 end

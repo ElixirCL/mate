@@ -18,11 +18,10 @@ defmodule Mate.Repositories.Messages do
     - Returns true if message was added
     - Returns false if the message already exists
   """
-  def can_be_saved?(%Message{} = message) do
+  def if_can_be_saved_create_message(%Message{} = message) do
     case Commands.create(message) do
       {:ok, _result} -> true
       _error ->
-        Logger.info("Message already in DB")
         false
     end
   end

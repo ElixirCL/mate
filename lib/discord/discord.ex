@@ -51,7 +51,7 @@ Main Discord Handler.
 
   def handle_event({:MESSAGE_CREATE, %Nostrum.Struct.Message{author: %Nostrum.Struct.User{bot: nil}} = msg, _ws_state}) do
     case Message.new(msg.id, message_type(msg), msg.channel_id, msg.guild_id, msg.author)
-    |> Messages.can_be_saved?() do
+    |> Messages.if_can_be_saved_create_message() do
       true -> case is_mate_message(msg.content) do
                 true ->
                   Actions.give_mate(msg, Enum.count(msg.mentions))

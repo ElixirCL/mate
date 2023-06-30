@@ -27,6 +27,20 @@ defmodule Mate.Repositories.Mates.Structs do
     end
   end
 
+  defmodule TopUser do
+    alias __MODULE__
+    defstruct ~w(id name count sort)a
+
+    def new(id, count, sort) do
+      %TopUser{
+        id: id,
+        name: "<@#{id}>",
+        count: count,
+        sort: sort
+      }
+    end
+  end
+
   defmodule Stats do
     def new(
           today: [sent: sent, left: left, received: received, hours: hours],
