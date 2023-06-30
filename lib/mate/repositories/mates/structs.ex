@@ -1,10 +1,11 @@
 defmodule Mate.Repositories.Mates.Structs do
   defmodule Give do
     alias __MODULE__
-    defstruct ~w(from to channel guild content)a
+    defstruct ~w(id from to channel guild content)a
 
-    def new(from, to, channel, guild, content) do
+    def new(id, from, to, channel, guild, content) do
       %Give{
+        id: id,
         from: from,
         to: to,
         channel: channel,
@@ -15,6 +16,7 @@ defmodule Mate.Repositories.Mates.Structs do
 
     def to_attrs(%Give{} = give) do
       %{
+        message_id: give.id,
         from_user_id: give.from.id,
         from_user_name: give.from.username,
         to_user_id: give.to.id,
@@ -25,7 +27,6 @@ defmodule Mate.Repositories.Mates.Structs do
     end
   end
 
-  # TODO: add month and year stats
   defmodule Stats do
     def new(
           today: [sent: sent, left: left, received: received, hours: hours],

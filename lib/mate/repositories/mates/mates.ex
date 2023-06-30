@@ -8,8 +8,8 @@ defmodule Mate.Repositories.Mates do
 
   def max, do: @max_mates
 
-  def send_mate(from: from, to: to, channel: channel, guild: guild, content: content) do
-    give = Structs.Give.new(from, to, channel, guild, content)
+  def send_mate(id: id, from: from, to: to, channel: channel, guild: guild, content: content) do
+    give = Structs.Give.new(id, from, to, channel, guild, content)
     case Queries.mates_from_user_for_today_in_guild(give.from.id, give.guild, :count) do
       count when count < @max_mates -> case give.from.id == give.to.id do
         true -> {:error, :SAME_PERSON, give.from}
@@ -54,6 +54,10 @@ defmodule Mate.Repositories.Mates do
     ]
 
     Structs.Stats.new(params)
+  end
+
+  def top(user: _user, guild: _guild) do
+
   end
 
 end

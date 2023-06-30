@@ -1,24 +1,25 @@
-defmodule Mate.Repositories.Mates.Schema do
+defmodule Mate.Repositories.Messages.Schema do
   use Mate.Schema
   import Ecto.Changeset
 
-  schema "mates" do
+  schema "messages" do
     field :message_id, :integer
     field :from_user_id, :integer
-    field :from_user_name, :string
-    field :to_user_id, :integer
-    field :to_user_name, :string
+    field :message_type, :integer
     field :channel_id, :integer
     field :guild_id, :integer
     timestamps(updated_at: false)
   end
 
   @optional []
-  @required [:message_id, :from_user_id, :from_user_name, :to_user_id, :to_user_name, :channel_id, :guild_id]
+  @required [:message_id, :from_user_id, :message_type, :channel_id, :guild_id]
 
   def changeset(model, attrs) do
     model
     |> cast(attrs, @optional ++ @required)
     |> validate_required(@required)
+    |> unique_constraint(:message_id, name: :messages_message_id_index)
   end
+
+
 end

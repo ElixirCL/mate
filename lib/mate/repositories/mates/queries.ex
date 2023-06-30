@@ -197,5 +197,4 @@ defmodule Mate.Repositories.Mates.Queries do
       {_, start_at, end_at, _} = today_datetimes()
       mates_to_user_in_guild(user_id, guild_id, start_at, end_at, :count)
     end
-
 end

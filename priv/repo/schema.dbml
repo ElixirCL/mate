@@ -3,11 +3,25 @@
 
 Table mates {
   id string // uuidv7
+  message_id // bigint
   from_user_id integer // bigint for discord ids
   from_user_name string
   to_user_id integer
   to_user_name string
   channel_id integer
   guild_id integer
+  inserted_at timestamp
+}
+
+// Table messages will hold the message id
+// so it can run concurrently without duplicating
+// the response to a given message
+Table messages {
+  id string // uuidv7
+  message_id integer // bigint unique
+  message_type integer // mate, command
+  from_user_id integer // bigint
+  channel_id integer // bigint
+  guild_id integer // bigint
   inserted_at timestamp
 }
