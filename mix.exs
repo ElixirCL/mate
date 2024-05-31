@@ -50,7 +50,7 @@ defmodule Mate.MixProject do
       {:gettext, "~> 0.20"},
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
-      {:nostrum, "~> 0.8"}, # Discord bot SDK
+      {:nostrum, "~> 0.9"}, # Discord bot SDK
       {:uniq, "~> 0.5.4"}, # uuidv7 support
     ]
   end

@@ -18,12 +18,12 @@ config :mate,
        ]
 
 config :nostrum,
-       token: System.get_env("DISCORD_TOKEN"),
-       gateway_intents: [
-         :message_content,
-         :guild_messages,
-         :direct_messages,
-       ]
+  token: System.get_env("DISCORD_TOKEN"),
+  gateway_intents: [
+    :message_content,
+    :guild_messages,
+    :direct_messages
+  ]
 
 # Configures the endpoint
 config :mate, MateWeb.Endpoint,
