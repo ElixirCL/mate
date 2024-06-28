@@ -1,6 +1,7 @@
 defmodule Mate.Repositories.Messages do
   alias __MODULE__
   alias Messages.Commands
+  alias Messages.Queries
   alias Messages.Structs.Message
 
   require Logger
@@ -20,9 +21,20 @@ defmodule Mate.Repositories.Messages do
   """
   def if_can_be_saved_create_message(%Message{} = message) do
     case Commands.create(message) do
-      {:ok, _result} -> true
+      {:ok, _result} ->
+        true
+
       _error ->
         false
     end
+  end
+
+  @doc """
+    Compares the current message with the last message saved
+    if is the same user then it will return true
+  """
+  def is_same_user_from_last_message(user_id) do
+    last_message = Queries.get_last_message()
+    user_id == last_message.from_user_id
   end
 end

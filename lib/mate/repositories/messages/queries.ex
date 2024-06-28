@@ -20,4 +20,9 @@ defmodule Mate.Repositories.Messages.Queries do
     |> Repo.aggregate(:count, :id)
   end
 
+  def get_last_message() do
+    Message
+    |> last()
+    |> Repo.one()
+  end
 end
