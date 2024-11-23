@@ -54,7 +54,7 @@ defmodule Discord.Actions do
     )
   end
 
-  def add_reaction(msg, emojis \\ nil) do
+  def add_reaction(msg, emojis \\ ["🧉", "🧙", "🎉", "👍", "👀", "🔥", "🚀", "☕", "✨", "⭐"]) do
     Message.add_reaction(msg.channel_id, msg.id, emojis)
   end
 end
